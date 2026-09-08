@@ -1,0 +1,143 @@
+[
+  {
+    "id": "snake",
+    "title": "Retro Snake",
+    "category": "Arcade",
+    "description": "Slither around the grid, devour apples, and grow your tail as long as possible without hitting walls or biting yourself.",
+    "iframe": "<iframe src=\"/games/snake.html\" title=\"Retro Snake\" width=\"100%\" height=\"100%\" frameborder=\"0\" allow=\"fullscreen\" allowfullscreen=\"true\" loading=\"lazy\"></iframe>",
+    "author": "Classic Arcade",
+    "tags": ["Classic", "Grid", "Retro", "Reflex"],
+    "badge": "Popular",
+    "themeColor": "#10b981",
+    "controls": [
+      "Arrow Keys / WASD to change direction",
+      "Spacebar to pause or resume game",
+      "On-screen arrow controls for touch devices"
+    ]
+  },
+  {
+    "id": "tetris",
+    "title": "Block Puzzle (Tetris)",
+    "category": "Puzzle",
+    "description": "Rotate and align falling geometric polyomino blocks to form solid horizontal lines and rack up massive combo scores.",
+    "iframe": "<iframe src=\"/games/tetris.html\" title=\"Block Puzzle\" width=\"100%\" height=\"100%\" frameborder=\"0\" allow=\"fullscreen\" allowfullscreen=\"true\" loading=\"lazy\"></iframe>",
+    "author": "Retro Labs",
+    "tags": ["Puzzle", "Logic", "Falling Blocks", "Strategy"],
+    "badge": "Featured",
+    "themeColor": "#06b6d4",
+    "controls": [
+      "Left / Right arrows or A/D to move piece",
+      "Up arrow or W to rotate clockwise",
+      "Down arrow for soft drop",
+      "Spacebar for instant hard drop",
+      "P key to pause"
+    ]
+  },
+  {
+    "id": "pong",
+    "title": "Classic Pong",
+    "category": "Sports",
+    "description": "The legendary 1972 table tennis duel. Deflect the bouncing ball with your paddle against a computer opponent or local 2-player friend.",
+    "iframe": "<iframe src=\"/games/pong.html\" title=\"Classic Pong\" width=\"100%\" height=\"100%\" frameborder=\"0\" allow=\"fullscreen\" allowfullscreen=\"true\" loading=\"lazy\"></iframe>",
+    "author": "Atari Era",
+    "tags": ["Sports", "2-Player", "Physics", "Retro"],
+    "badge": "2-Player",
+    "themeColor": "#38bdf8",
+    "controls": [
+      "Player 1: W/S keys, Mouse, or Up/Down",
+      "Player 2 (in 2P mode): Up/Down arrow keys",
+      "First to 7 points takes the tournament victory"
+    ]
+  },
+  {
+    "id": "breakout",
+    "title": "Brick Breaker",
+    "category": "Arcade",
+    "description": "Smash your way through colored layers of bricks with a high-velocity steel ball and agile bottom paddle.",
+    "iframe": "<iframe src=\"/games/breakout.html\" title=\"Brick Breaker\" width=\"100%\" height=\"100%\" frameborder=\"0\" allow=\"fullscreen\" allowfullscreen=\"true\" loading=\"lazy\"></iframe>",
+    "author": "Pixel Studios",
+    "tags": ["Arcade", "Action", "Breakout", "Physics"],
+    "badge": "Classic",
+    "themeColor": "#f59e0b",
+    "controls": [
+      "Mouse movement or Left / Right arrow keys to steer paddle",
+      "Spacebar or Click to launch the ball from paddle"
+    ]
+  },
+  {
+    "id": "space-invaders",
+    "title": "Space Invaders",
+    "category": "Action",
+    "description": "Control an Earth defense laser cannon and eliminate descending waves of extraterrestrial invaders before they reach surface.",
+    "iframe": "<iframe src=\"/games/space-invaders.html\" title=\"Space Invaders\" width=\"100%\" height=\"100%\" frameborder=\"0\" allow=\"fullscreen\" allowfullscreen=\"true\" loading=\"lazy\"></iframe>",
+    "author": "Taito Classic",
+    "tags": ["Shooter", "Space", "Retro", "Defense"],
+    "badge": "Retro Hit",
+    "themeColor": "#a855f7",
+    "controls": [
+      "Left / Right arrows or A/D to maneuver defense cannon",
+      "Spacebar to fire laser beams"
+    ]
+  },
+  {
+    "id": "minesweeper",
+    "title": "Minesweeper",
+    "category": "Puzzle",
+    "description": "Use logical deduction and numerical clues to clear the minefield without detonating hidden naval explosive charges.",
+    "iframe": "<iframe src=\"/games/minesweeper.html\" title=\"Minesweeper\" width=\"100%\" height=\"100%\" frameborder=\"0\" allow=\"fullscreen\" allowfullscreen=\"true\" loading=\"lazy\"></iframe>",
+    "author": "Desktop Classics",
+    "tags": ["Puzzle", "Logic", "Strategy", "Brain"],
+    "badge": "Brain",
+    "themeColor": "#ef4444",
+    "controls": [
+      "Left Click to uncover a tile",
+      "Right Click (or toggle Flag Mode button) to plant warning flags",
+      "Click the face button to restart with a new board"
+    ]
+  },
+  {
+    "id": "2048",
+    "title": "2048",
+    "category": "Puzzle",
+    "description": "Slide matching numbered tiles across the 4x4 grid. Merge 2s into 4s, 4s into 8s, all the way up to the elusive 2048 tile!",
+    "iframe": "<iframe src=\"/games/game-2048.html\" title=\"2048\" width=\"100%\" height=\"100%\" frameborder=\"0\" allow=\"fullscreen\" allowfullscreen=\"true\" loading=\"lazy\"></iframe>",
+    "author": "Gabriele Cirulli",
+    "tags": ["Numbers", "Puzzle", "Math", "Addictive"],
+    "badge": "Popular",
+    "themeColor": "#eab308",
+    "controls": [
+      "Arrow keys or WASD to slide all tiles across the grid",
+      "On-screen arrow buttons for mobile and touch screens"
+    ]
+  },
+  {
+    "id": "flappy",
+    "title": "Flappy Wings",
+    "category": "Arcade",
+    "description": "Keep the little bird airborne by tapping to flap wings and carefully navigating through endless pairs of tall green pipes.",
+    "iframe": "<iframe src=\"/games/flappy.html\" title=\"Flappy Wings\" width=\"100%\" height=\"100%\" frameborder=\"0\" allow=\"fullscreen\" allowfullscreen=\"true\" loading=\"lazy\"></iframe>",
+    "author": "Pixel Wings",
+    "tags": ["Arcade", "Endless", "One-Button", "Skill"],
+    "badge": "High Score",
+    "themeColor": "#facc15",
+    "controls": [
+      "Spacebar, Click, or Tap screen to flap and jump upward",
+      "Time your flaps to slip between pipe gaps"
+    ]
+  },
+  {
+    "id": "tictactoe",
+    "title": "Tic Tac Toe",
+    "category": "Classic",
+    "description": "The timeless 3x3 strategy game. Play against an intelligent computer engine or challenge a friend in head-to-head local mode.",
+    "iframe": "<iframe src=\"/games/tictactoe.html\" title=\"Tic Tac Toe\" width=\"100%\" height=\"100%\" frameborder=\"0\" allow=\"fullscreen\" allowfullscreen=\"true\" loading=\"lazy\"></iframe>",
+    "author": "Classic Games",
+    "tags": ["Classic", "Strategy", "2-Player", "Fast"],
+    "badge": "Quick Play",
+    "themeColor": "#38bdf8",
+    "controls": [
+      "Click an empty square to place your symbol (X or O)",
+      "Switch between vs CPU and 2 Players mode anytime"
+    ]
+  }
+]

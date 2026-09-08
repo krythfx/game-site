@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2048</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      user-select: none;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 380px;
+      margin-bottom: 12px;
+    }
+    .title-box h1 { font-size: 32px; font-weight: 800; color: #f59e0b; }
+    .scores-box {
+      display: flex;
+      gap: 8px;
+    }
+    .score-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 6px 12px;
+      border-radius: 8px;
+      text-align: center;
+      min-width: 70px;
+    }
+    .score-card-label { font-size: 10px; font-weight: 700; color: #94a3b8; }
+    .score-card-val { font-size: 16px; font-weight: 700; color: #f8fafc; font-family: monospace; }
+    .board-container {
+      position: relative;
+      background: #1e293b;
+      border: 4px solid #334155;
+      border-radius: 12px;
+      padding: 10px;
+      width: 360px;
+      height: 360px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+    }
+    .grid-bg {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 10px;
+      width: 100%;
+      height: 100%;
+    }
+    .grid-cell {
+      background: #0f172a;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 800;
+      transition: transform 0.1s;
+    }
+    .tile-2 { background: #e2e8f0; color: #1e293b; }
+    .tile-4 { background: #cbd5e1; color: #1e293b; }
+    .tile-8 { background: #fb923c; color: #ffffff; }
+    .tile-16 { background: #f97316; color: #ffffff; }
+    .tile-32 { background: #ea580c; color: #ffffff; }
+    .tile-64 { background: #dc2626; color: #ffffff; }
+    .tile-128 { background: #eab308; color: #ffffff; font-size: 22px; }
+    .tile-256 { background: #facc15; color: #1e293b; font-size: 22px; }
+    .tile-512 { background: #10b981; color: #ffffff; font-size: 22px; }
+    .tile-1024 { background: #06b6d4; color: #ffffff; font-size: 18px; }
+    .tile-2048 { background: #8b5cf6; color: #ffffff; font-size: 18px; box-shadow: 0 0 15px #8b5cf6; }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(4px);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      text-align: center;
+      padding: 16px;
+    }
+    .overlay h2 { font-size: 24px; margin-bottom: 8px; color: #f1f5f9; }
+    .btn {
+      background: #f59e0b;
+      color: #451a03;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .btn:hover { background: #fbbf24; }
+    .controls-hint {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #64748b;
+      text-align: center;
+    }
+    .mobile-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 44px);
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .m-btn {
+      width: 44px;
+      height: 44px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .m-btn:active { background: #f59e0b; color: #020617; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="title-box">
+      <h1>2048</h1>
+    </div>
+    <div class="scores-box">
+      <div class="score-card">
+        <div class="score-card-label">SCORE</div>
+        <div id="score" class="score-card-val">0</div>
+      </div>
+      <div class="score-card">
+        <div class="score-card-label">BEST</div>
+        <div id="best" class="score-card-val">0</div>
+      </div>
+      <button id="reset-btn" class="btn" style="height:44px;">New</button>
+    </div>
+  </div>
+
+  <div class="board-container">
+    <div id="grid" class="grid-bg"></div>
+    <div id="overlay" class="overlay">
+      <h2 id="overlay-title">GAME OVER</h2>
+      <button id="overlay-btn" class="btn">TRY AGAIN</button>
+    </div>
+  </div>
+
+  <div class="controls-hint">Use Arrow Keys or WASD to slide tiles</div>
+
+  <div class="mobile-controls">
+    <div></div>
+    <button class="m-btn" id="m-up">▲</button>
+    <div></div>
+    <button class="m-btn" id="m-left">◀</button>
+    <button class="m-btn" id="m-down">▼</button>
+    <button class="m-btn" id="m-right">▶</button>
+  </div>
+
+  <script>
+    const SIZE = 4;
+    let grid = [];
+    let score = 0;
+    let best = parseInt(localStorage.getItem('2048_best') || '0', 10);
+
+    const gridEl = document.getElementById('grid');
+    const scoreEl = document.getElementById('score');
+    const bestEl = document.getElementById('best');
+    const overlay = document.getElementById('overlay');
+    const overlayTitle = document.getElementById('overlay-title');
+    const overlayBtn = document.getElementById('overlay-btn');
+    const resetBtn = document.getElementById('reset-btn');
+
+    bestEl.textContent = best;
+
+    // Audio
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function beep(freq, duration, type='sine') {
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    function initGame() {
+      grid = Array(SIZE).fill(null).map(() => Array(SIZE).fill(0));
+      score = 0;
+      scoreEl.textContent = '0';
+      overlay.style.display = 'none';
+      spawnTile();
+      spawnTile();
+      render();
+    }
+
+    function spawnTile() {
+      const empty = [];
+      for (let r = 0; r < SIZE; r++) {
+        for (let c = 0; c < SIZE; c++) {
+          if (grid[r][c] === 0) empty.push({ r, c });
+        }
+      }
+      if (empty.length > 0) {
+        const spot = empty[Math.floor(Math.random() * empty.length)];
+        grid[spot.r][spot.c] = Math.random() < 0.9 ? 2 : 4;
+      }
+    }
+
+    function render() {
+      gridEl.innerHTML = '';
+      for (let r = 0; r < SIZE; r++) {
+        for (let c = 0; c < SIZE; c++) {
+          const val = grid[r][c];
+          const cell = document.createElement('div');
+          cell.className = 'grid-cell';
+          if (val > 0) {
+            cell.textContent = val;
+            cell.classList.add(`tile-${val <= 2048 ? val : 2048}`);
+          }
+          gridEl.appendChild(cell);
+        }
+      }
+    }
+
+    function slide(row) {
+      let arr = row.filter(val => val);
+      let gained = 0;
+      for (let i = 0; i < arr.length - 1; i++) {
+        if (arr[i] === arr[i + 1]) {
+          arr[i] *= 2;
+          gained += arr[i];
+          arr[i + 1] = 0;
+        }
+      }
+      arr = arr.filter(val => val);
+      while (arr.length < SIZE) arr.push(0);
+      return { arr, gained };
+    }
+
+    function moveLeft() {
+      let changed = false;
+      let totalGained = 0;
+      for (let r = 0; r < SIZE; r++) {
+        const { arr, gained } = slide(grid[r]);
+        if (arr.join(',') !== grid[r].join(',')) changed = true;
+        grid[r] = arr;
+        totalGained += gained;
+      }
+      return { changed, totalGained };
+    }
+
+    function rotateGrid() {
+      const newGrid = Array(SIZE).fill(null).map(() => Array(SIZE).fill(0));
+      for (let r = 0; r < SIZE; r++) {
+        for (let c = 0; c < SIZE; c++) {
+          newGrid[c][SIZE - 1 - r] = grid[r][c];
+        }
+      }
+      grid = newGrid;
+    }
+
+    function makeMove(direction) {
+      // 0: left, 1: down, 2: right, 3: up
+      let rotations = 0;
+      if (direction === 'down') rotations = 1;
+      else if (direction === 'right') rotations = 2;
+      else if (direction === 'up') rotations = 3;
+
+      for (let i = 0; i < rotations; i++) rotateGrid();
+      const { changed, totalGained } = moveLeft();
+      for (let i = 0; i < (4 - rotations) % 4; i++) rotateGrid();
+
+      if (changed) {
+        score += totalGained;
+        scoreEl.textContent = score;
+        if (score > best) {
+          best = score;
+          bestEl.textContent = best;
+          localStorage.setItem('2048_best', best.toString());
+        }
+        beep(totalGained > 0 ? 520 : 320, 0.05);
+        spawnTile();
+        render();
+
+        if (isGameOver()) {
+          overlayTitle.textContent = 'NO MORE MOVES!';
+          overlay.style.display = 'flex';
+        }
+      }
+    }
+
+    function isGameOver() {
+      for (let r = 0; r < SIZE; r++) {
+        for (let c = 0; c < SIZE; c++) {
+          if (grid[r][c] === 0) return false;
+          if (r < SIZE - 1 && grid[r][c] === grid[r + 1][c]) return false;
+          if (c < SIZE - 1 && grid[r][c] === grid[r][c + 1]) return false;
+        }
+      }
+      return true;
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (['ArrowLeft', 'KeyA'].includes(e.code)) makeMove('left');
+      else if (['ArrowRight', 'KeyD'].includes(e.code)) makeMove('right');
+      else if (['ArrowUp', 'KeyW'].includes(e.code)) makeMove('up');
+      else if (['ArrowDown', 'KeyS'].includes(e.code)) makeMove('down');
+    });
+
+    document.getElementById('m-left').addEventListener('click', () => makeMove('left'));
+    document.getElementById('m-right').addEventListener('click', () => makeMove('right'));
+    document.getElementById('m-up').addEventListener('click', () => makeMove('up'));
+    document.getElementById('m-down').addEventListener('click', () => makeMove('down'));
+
+    resetBtn.addEventListener('click', initGame);
+    overlayBtn.addEventListener('click', initGame);
+
+    initGame();
+  </script>
+</body>
+</html>
